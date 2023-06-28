@@ -12,7 +12,7 @@ router.route('/:id')
   .get(accommodationsController.getSpecificAccommodation)
   .patch(accommodationsController.updateAccommodation)
 
-router.route('/owner')
+router.route('/myaccommodations')
   .get(accommodationsController.getAllAccommodationsForOwner)
 
 module.exports = router

@@ -4,11 +4,15 @@ const accommodationsController = require('../controllers/accommodationsControlle
 
 router.route('/')
   .get(accommodationsController.getAllAccommodations)
-  .post()
-  .put()
+  .post(accommodationsController.createNewAccommodation)
+  
   .delete()
 
 router.route('/:id')
-  .get(accommodationsController.getAccommodation)
+  .get(accommodationsController.getSpecificAccommodation)
+  .patch(accommodationsController.updateAccommodation)
+
+router.route('/owner')
+  .get(accommodationsController.getAllAccommodationsForOwner)
 
 module.exports = router

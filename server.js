@@ -27,6 +27,7 @@ app.use('/', require('./routes/root'))
 app.use('/users', require('./routes/registerRoutes'))
 app.use('/accommodations', require('./routes/accommodationRoutes'))
 app.use('/uploaded-photo', require('./routes/photoRoutes'))
+app.use('/bookings', require('./routes/bookingRoutes'))
 
 app.all('*', (req, res) => {
   res.status(404)

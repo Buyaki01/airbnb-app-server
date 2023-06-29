@@ -4,9 +4,10 @@ const accommodationsController = require('../controllers/accommodationsControlle
 
 router.route('/')
   .get(accommodationsController.getAllAccommodations)
-  .post(accommodationsController.createNewAccommodation)
-  
   .delete()
+
+router.route('new')
+  .post(accommodationsController.createNewAccommodation)
 
 router.route('/:id')
   .get(accommodationsController.getSpecificAccommodation)

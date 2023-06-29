@@ -1,4 +1,5 @@
 const Booking = require('../models/Booking')
+const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 
 const createNewBooking = asyncHandler(async (req, res) => {
@@ -6,7 +7,12 @@ const createNewBooking = asyncHandler(async (req, res) => {
     checkOut, noOfGuests, name, 
     mobileNumber, price} = req.body
   
-  const ownerId = req.user.id
+  const user = await User.findOne({ username: req.user.username })
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' })
+  }
+
+  const ownerId = user._id
 
   const booking = await Booking.create({
     userId:ownerId,
@@ -27,7 +33,12 @@ const createNewBooking = asyncHandler(async (req, res) => {
 })
 
 const getAllBookingsByOwner = asyncHandler(async (req, res) => {
-  const ownerId = req.user.id
+  const user = await User.findOne({ username: req.user.username })
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' })
+  }
+
+  const ownerId = user._id
 
   // Find all bookings where the owner's ID matches the userId in the Booking model
   const bookings = await Booking.find({ userId: ownerId }).populate('accomodationId')
@@ -42,7 +53,12 @@ const getAllBookingsByOwner = asyncHandler(async (req, res) => {
 const getSpecificBooking = asyncHandler(async (req, res) => {
   if (!req?.params?.id) return res.status(400).json({ 'message': 'Booking ID required.' })
   
-  const ownerId = req.user.id
+  const user = await User.findOne({ username: req.user.username })
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' })
+  }
+
+  const ownerId = user._id
 
   const booking = await Booking.findOne({ _id: req.params.id, userId: ownerId }).populate('accomodationId')
 

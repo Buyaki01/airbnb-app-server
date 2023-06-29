@@ -1,4 +1,5 @@
 const Accommodation = require('../models/Accommodation')
+const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 
 const getAllAccommodations = asyncHandler(async (req, res) => {
@@ -16,7 +17,6 @@ const getSpecificAccommodation = asyncHandler(async (req, res) => {
 })
 
 const createNewAccommodation = asyncHandler(async (req, res) => {
-  console.log(req.user)
   const {title, address, photos:addPhoto, 
     description, features, 
     extraInfo, checkIn, checkOut, maxGuests, price,} = req.body
@@ -25,8 +25,14 @@ const createNewAccommodation = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: 'Title, Address and Price fields are required' })
   }
 
-  // Get the user ID from req.user object
-  const ownerId = req.user.id
+  // Fetch the user ID based on the username
+  // req.user.username is coming from verifyJWT middleware, token generated after user logs in
+  const user = await User.findOne({ username: req.user.username })
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' })
+  }
+
+  const ownerId = user._id
 
   const accomodation = await Accommodation.create({
     owner: ownerId,
@@ -43,7 +49,12 @@ const createNewAccommodation = asyncHandler(async (req, res) => {
 })
 
 const getAllAccommodationsForOwner = asyncHandler(async (req, res) => {
-  const ownerId = req.user.id
+  const user = await User.findOne({ username: req.user.username })
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' })
+  }
+
+  const ownerId = user._id
 
   const accommodations = await Accommodation.find({ owner: ownerId })
 

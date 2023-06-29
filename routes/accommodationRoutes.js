@@ -8,7 +8,7 @@ router.route('/')
   .delete()
 
 router.route('new')
-  .post(verifyJWT, accommodationsController.createNewAccommodation)
+  .post(accommodationsController.createNewAccommodation)
 
 router.route('/:id')
   .get(accommodationsController.getSpecificAccommodation)

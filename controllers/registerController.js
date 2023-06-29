@@ -22,10 +22,17 @@ const createNewUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: 'All fields are required' })
   }
 
-  // Check for duplicate email
-  const duplicate = await User.findOne({ email }).collation({ locale: 'en', strength: 2 }).lean().exec()
+  // Check for duplicate username
+  const duplicateUsername = await User.findOne({ username }).collation({ locale: 'en', strength: 2 }).lean().exec()
 
-  if (duplicate) {
+  if (duplicateUsername) {
+    return res.status(409).json({ message: 'Duplicate username' })
+  }
+
+  // Check for duplicate email
+  const duplicateEmail = await User.findOne({ email }).collation({ locale: 'en', strength: 2 }).lean().exec()
+
+  if (duplicateEmail) {
     return res.status(409).json({ message: 'Duplicate email' })
   }
 

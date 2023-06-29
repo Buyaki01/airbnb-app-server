@@ -33,7 +33,7 @@ const getAllBookingsByOwner = asyncHandler(async (req, res) => {
   const bookings = await Booking.find({ userId: ownerId }).populate('accomodationId')
 
   if (bookings) {
-    res.status(200).json({ message: `Booking found` })
+    res.status(200).json(bookings)
   } else {
     res.status(404).json({ message: 'No bookings found' })
   }

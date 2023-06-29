@@ -26,7 +26,7 @@ const createNewBooking = asyncHandler(async (req, res) => {
   }
 })
 
-const allBookingsByOwner = asyncHandler(async (req, res) => {
+const getAllBookingsByOwner = asyncHandler(async (req, res) => {
   const ownerId = req.user.id
 
   // Find all bookings where the owner's ID matches the userId in the Booking model
@@ -39,7 +39,22 @@ const allBookingsByOwner = asyncHandler(async (req, res) => {
   }
 })
 
+const getSpecificBooking = asyncHandler(async (req, res) => {
+  if (!req?.params?.id) return res.status(400).json({ 'message': 'Booking ID required.' })
+  
+  const ownerId = req.user.id
+
+  const booking = await Booking.findOne({ _id: req.params.id, userId: ownerId }).populate('accomodationId')
+
+  if (booking) {
+    res.status(200).json(booking)
+  } else {
+    res.status(404).json({ message: 'Booking not found' })
+  }
+})
+
 module.exports = {
   createNewBooking,
-  allBookingsByOwner
+  getAllBookingsByOwner,
+  getSpecificBooking
 }

@@ -6,13 +6,13 @@ const getAllAccommodations = asyncHandler(async (req, res) => {
 })
 
 const getSpecificAccommodation = asyncHandler(async (req, res) => {
-  if (!req?.params?.id) return res.status(400).json({ 'message': 'Accomodation ID required.' });
+  if (!req?.params?.id) return res.status(400).json({ 'message': 'Accomodation ID required.' })
 
-  const accommodation = await Accommodation.findOne({ _id: req.params.id }).exec();
+  const accommodation = await Accommodation.findOne({ _id: req.params.id }).exec()
   if (!accommodation) {
-    return res.status(204).json({ "message": `No accommodation matches ID ${req.params.id}.` });
+    return res.status(204).json({ "message": `No accommodation matches ID ${req.params.id}.` })
   }
-  res.json(accommodation);
+  res.json(accommodation)
 })
 
 const createNewAccommodation = asyncHandler(async (req, res) => {

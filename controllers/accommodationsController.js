@@ -17,6 +17,7 @@ const getSpecificAccommodation = asyncHandler(async (req, res) => {
 })
 
 const createNewAccommodation = asyncHandler(async (req, res) => {
+  console.log(req.user)
   const {title, address, photos:addPhoto, 
     description, features, 
     extraInfo, checkIn, checkOut, maxGuests, price,} = req.body
@@ -28,6 +29,8 @@ const createNewAccommodation = asyncHandler(async (req, res) => {
   // Fetch the user ID based on the username
   // req.user.username is coming from verifyJWT middleware, token generated after user logs in
   const user = await User.findOne({ username: req.user.username })
+  console.log(user)
+  
   if (!user) {
     return res.status(404).json({ message: 'User not found' })
   }

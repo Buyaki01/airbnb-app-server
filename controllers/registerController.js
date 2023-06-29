@@ -22,7 +22,7 @@ const createNewUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: 'All fields are required' })
   }
 
-  // Check for duplicate username
+  // Check for duplicate username. Collation handles case-sensitive data
   const duplicateUsername = await User.findOne({ username }).collation({ locale: 'en', strength: 2 }).lean().exec()
 
   if (duplicateUsername) {

@@ -5,7 +5,7 @@ const getAllAccommodations = asyncHandler(async (req, res) => {
   res.json( await Accommodation.find())
 })
 
-const getSpecificAccommodation = asyncHandler( async (req, res) => {
+const getSpecificAccommodation = asyncHandler(async (req, res) => {
   if (!req?.params?.id) return res.status(400).json({ 'message': 'Accomodation ID required.' });
 
   const accommodation = await Accommodation.findOne({ _id: req.params.id }).exec();
@@ -15,7 +15,7 @@ const getSpecificAccommodation = asyncHandler( async (req, res) => {
   res.json(accommodation);
 })
 
-const createNewAccommodation = asyncHandler( async (req, res) => {
+const createNewAccommodation = asyncHandler(async (req, res) => {
   const {title, address, photos:addPhoto, 
     description, features, 
     extraInfo, checkIn, checkOut, maxGuests, price,} = req.body
@@ -41,7 +41,7 @@ const createNewAccommodation = asyncHandler( async (req, res) => {
   }
 })
 
-const getAllAccommodationsForOwner = asyncHandler( async (req, res) => {
+const getAllAccommodationsForOwner = asyncHandler(async (req, res) => {
   const ownerId = req.user.id
 
   const accommodations = await Accommodation.find({ owner: ownerId })
@@ -53,7 +53,7 @@ const getAllAccommodationsForOwner = asyncHandler( async (req, res) => {
   }
 })
 
-const updateAccommodation = asyncHandler( async (req, res) => {
+const updateAccommodation = asyncHandler(async (req, res) => {
   const {id} = req.params
 
   const {title, address, photos:addPhoto, 

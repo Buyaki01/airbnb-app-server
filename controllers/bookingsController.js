@@ -7,7 +7,7 @@ const createNewBooking = asyncHandler(async (req, res) => {
     checkOut, noOfGuests, name, 
     mobileNumber, price} = req.body
   
-  const user = await User.findOne({ username: req.user.username })
+  const user = await User.findOne({ username: req.user })
   if (!user) {
     return res.status(404).json({ message: 'User not found' })
   }
@@ -33,7 +33,7 @@ const createNewBooking = asyncHandler(async (req, res) => {
 })
 
 const getAllBookingsByOwner = asyncHandler(async (req, res) => {
-  const user = await User.findOne({ username: req.user.username })
+  const user = await User.findOne({ username: req.user })
   if (!user) {
     return res.status(404).json({ message: 'User not found' })
   }
@@ -53,7 +53,7 @@ const getAllBookingsByOwner = asyncHandler(async (req, res) => {
 const getSpecificBooking = asyncHandler(async (req, res) => {
   if (!req?.params?.id) return res.status(400).json({ 'message': 'Booking ID required.' })
   
-  const user = await User.findOne({ username: req.user.username })
+  const user = await User.findOne({ username: req.user })
   if (!user) {
     return res.status(404).json({ message: 'User not found' })
   }

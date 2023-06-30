@@ -10,11 +10,11 @@ router.route('/')
 router.route('/new')
   .post(verifyJWT, accommodationsController.createNewAccommodation)
 
+router.route('/myaccommodations')
+  .get(verifyJWT, accommodationsController.getAllAccommodationsForOwner)
+  
 router.route('/:id')
   .get(accommodationsController.getSpecificAccommodation)
   .patch(verifyJWT, accommodationsController.updateAccommodation)
-
-router.route('/myaccommodations')
-  .get(verifyJWT, accommodationsController.getAllAccommodationsForOwner)
 
 module.exports = router

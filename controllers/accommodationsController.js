@@ -51,6 +51,7 @@ const createNewAccommodation = asyncHandler(async (req, res) => {
 
 const getAllAccommodationsForOwner = asyncHandler(async (req, res) => {
   const user = await User.findOne({ username: req.user })
+  
   if (!user) {
     return res.status(404).json({ message: 'User not found' })
   }

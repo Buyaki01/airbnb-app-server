@@ -65,4 +65,4 @@ Feel free to check the [issues page](https://github.com/Buyaki01/airbnb-app-serv
 Give a ⭐️ if you like this project!
 
 ## Acknowledgments
-- Inspiration: [Dave Gray](https://github.com/dejwid)
+- Inspiration: [Dave Gray]([https://github.com/dejwid](https://www.youtube.com/@DaveGrayTeachesCode)https://www.youtube.com/@DaveGrayTeachesCode)

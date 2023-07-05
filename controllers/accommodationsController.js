@@ -6,7 +6,7 @@ const getAllAccommodations = asyncHandler(async (req, res) => {
 })
 
 const getSpecificAccommodation = asyncHandler(async (req, res) => {
-  if (!req?.params?.id) return res.status(400).json({ 'message': 'Accomodation ID required.' })
+  if (!req?.params?.id) return res.status(400).json({ 'message': 'Accommodation ID required.' })
 
   const accommodation = await Accommodation.findOne({ _id: req.params.id }).exec()
   if (!accommodation) {
@@ -28,17 +28,17 @@ const createNewAccommodation = asyncHandler(async (req, res) => {
   // Get the user ID from req.user object
   const ownerId = req.user.id
 
-  const accomodation = await Accommodation.create({
+  const accommodation = await Accommodation.create({
     owner: ownerId,
     title, address, photos:addPhoto, 
     description, features, 
     extraInfo, checkIn, checkOut, maxGuests, price,
   })
 
-  if (accomodation) { //created 
-    res.status(201).json({ message: `New accomodation ${title} created` })
+  if (accommodation) { //created 
+    res.status(201).json({ message: `New accommodation ${title} created` })
   } else {
-    res.status(400).json({ message: 'Invalid accomodation data received' })
+    res.status(400).json({ message: 'Invalid accommodation data received' })
   }
 })
 

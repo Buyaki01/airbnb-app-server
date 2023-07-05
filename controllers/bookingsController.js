@@ -9,8 +9,8 @@ const createNewBooking = asyncHandler(async (req, res) => {
   const ownerId = req.user
 
   const booking = await Booking.create({
-    userId:ownerId,
-    accommodationId, 
+    accommodationId,
+    userId: ownerId, 
     checkIn, 
     checkOut, 
     noOfGuests, 
@@ -33,7 +33,7 @@ const getAllBookingsByOwner = asyncHandler(async (req, res) => {
   const bookings = await Booking.find({ userId: ownerId }).populate('accommodationId')
 
   if (bookings) {
-    res.status(200).json({ message: `Booking found` })
+    res.status(200).json(bookings)
   } else {
     res.status(404).json({ message: 'No bookings found' })
   }

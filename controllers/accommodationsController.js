@@ -47,7 +47,7 @@ const getAllAccommodationsForOwner = asyncHandler(async (req, res) => {
   const accommodations = await Accommodation.find({ owner: ownerId })
 
   if (accommodations.length > 0) {
-    res.status(201).json({ message: 'Accommodations retrieved successfully' })
+    res.status(201).json(accommodations)
   } else {
     res.status(400).json({ message: 'Error retrieving accommodations for owner' })
   }
@@ -80,7 +80,7 @@ const updateAccommodation = asyncHandler(async (req, res) => {
   const updatedAccommodation = await accommodation.save()
 
   if (updatedAccommodation) {
-    res.status(200).json({ message: 'Accommodation updated successfully' });
+    res.status(200).json( updatedAccommodation);
   } else {
     res.status(404).json({ message: 'Accommodation not found' });
   }

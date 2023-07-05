@@ -3,7 +3,7 @@ const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 
 const createNewBooking = asyncHandler(async (req, res) => {
-  const {accomodationId, checkIn, 
+  const {accommodationId, checkIn, 
     checkOut, noOfGuests, name, 
     mobileNumber, price} = req.body
   
@@ -16,7 +16,7 @@ const createNewBooking = asyncHandler(async (req, res) => {
 
   const booking = await Booking.create({
     userId:ownerId,
-    accomodationId, 
+    accommodationId, 
     checkIn, 
     checkOut, 
     noOfGuests, 
@@ -41,7 +41,7 @@ const getAllBookingsByOwner = asyncHandler(async (req, res) => {
   const ownerId = user._id
 
   // Find all bookings where the owner's ID matches the userId in the Booking model
-  const bookings = await Booking.find({ userId: ownerId }).populate('accomodationId')
+  const bookings = await Booking.find({ userId: ownerId }).populate('accommodationId')
 
   if (bookings) {
     res.status(200).json(bookings)
@@ -60,7 +60,7 @@ const getSpecificBooking = asyncHandler(async (req, res) => {
 
   const ownerId = user._id
 
-  const booking = await Booking.findOne({ _id: req.params.id, userId: ownerId }).populate('accomodationId')
+  const booking = await Booking.findOne({ _id: req.params.id, userId: ownerId }).populate('accommodationId')
 
   if (booking) {
     res.status(200).json(booking)

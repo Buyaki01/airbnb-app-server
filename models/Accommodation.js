@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const {Schema} = mongoose
 
-const accomodationSchema = new Schema({
+const accommodationSchema = new Schema({
   owner: {type:mongoose.Schema.Types.ObjectId, ref:'User'},
   title: {type: String, required: true},
   address: {type: String, required: true},
@@ -15,4 +15,4 @@ const accomodationSchema = new Schema({
   price: {type: Number, required: true, default: 10},
 })
 
-module.exports = mongoose.model('Accomodation', accomodationSchema)
+module.exports = mongoose.model('Accommodation', accommodationSchema)

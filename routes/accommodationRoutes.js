@@ -6,14 +6,14 @@ router.route('/')
   .get(accommodationsController.getAllAccommodations)
   .delete()
 
-router.route('new')
+router.route('/new')
   .post(accommodationsController.createNewAccommodation)
+
+router.route('/myaccommodations')
+  .get(accommodationsController.getAllAccommodationsForOwner)
 
 router.route('/:id')
   .get(accommodationsController.getSpecificAccommodation)
   .patch(accommodationsController.updateAccommodation)
-
-router.route('/myaccommodations')
-  .get(accommodationsController.getAllAccommodationsForOwner)
 
 module.exports = router

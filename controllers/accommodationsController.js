@@ -16,7 +16,6 @@ const getSpecificAccommodation = asyncHandler(async (req, res) => {
 })
 
 const createNewAccommodation = asyncHandler(async (req, res) => {
-  console.log(req.user)
   const {title, address, photos:addPhoto, 
     description, features, 
     extraInfo, checkIn, checkOut, maxGuests, price,} = req.body
@@ -26,7 +25,7 @@ const createNewAccommodation = asyncHandler(async (req, res) => {
   }
 
   // Get the user ID from req.user object
-  const ownerId = req.user.id
+  const ownerId = req.user
 
   const accommodation = await Accommodation.create({
     owner: ownerId,
@@ -43,7 +42,7 @@ const createNewAccommodation = asyncHandler(async (req, res) => {
 })
 
 const getAllAccommodationsForOwner = asyncHandler(async (req, res) => {
-  const ownerId = req.user.id
+  const ownerId = req.user
 
   const accommodations = await Accommodation.find({ owner: ownerId })
 

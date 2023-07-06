@@ -1,4 +1,5 @@
 const Accommodation = require('../models/Accommodation')
+const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 
 const getAllAccommodations = asyncHandler(async (req, res) => {
@@ -6,11 +7,13 @@ const getAllAccommodations = asyncHandler(async (req, res) => {
 })
 
 const getSpecificAccommodation = asyncHandler(async (req, res) => {
+  console.log(req.params)
+  
   if (!req?.params?.id) return res.status(400).json({ 'message': 'Accommodation ID required.' })
 
   const accommodation = await Accommodation.findOne({ _id: req.params.id }).exec()
   if (!accommodation) {
-    return res.status(204).json({ "message": `No accommodation matches ID ${req.params.id}.` })
+    return res.status(404).json({ "message": `No accommodation matches ID ${req.params.id}.` })
   }
   res.json(accommodation)
 })
@@ -25,7 +28,13 @@ const createNewAccommodation = asyncHandler(async (req, res) => {
   }
 
   // Get the user ID from req.user object
-  const ownerId = req.user
+  const user = await User.findOne({ username: req.user })
+  
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' })
+  }
+
+  const ownerId = user._id
 
   const accommodation = await Accommodation.create({
     owner: ownerId,
@@ -42,7 +51,13 @@ const createNewAccommodation = asyncHandler(async (req, res) => {
 })
 
 const getAllAccommodationsForOwner = asyncHandler(async (req, res) => {
-  const ownerId = req.user
+  const user = await User.findOne({ username: req.user })
+  
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' })
+  }
+
+  const ownerId = user._id
 
   const accommodations = await Accommodation.find({ owner: ownerId })
 

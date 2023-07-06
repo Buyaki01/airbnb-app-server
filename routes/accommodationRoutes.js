@@ -5,15 +5,9 @@ const accommodationsController = require('../controllers/accommodationsControlle
 router.route('/')
   .get(accommodationsController.getAllAccommodations)
   .delete()
-
-router.route('/new')
   .post(accommodationsController.createNewAccommodation)
-
-router.route('/myaccommodations')
   .get(accommodationsController.getAllAccommodationsForOwner)
-
-router.route('/:id')
-  .get(accommodationsController.getSpecificAccommodation)
   .patch(accommodationsController.updateAccommodation)
+  .get(accommodationsController.getSpecificAccommodation)
 
 module.exports = router

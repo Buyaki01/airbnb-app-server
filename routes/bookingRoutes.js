@@ -5,6 +5,9 @@ const verifyJWT = require('../middleware/verifyJWT')
 
 router.use(verifyJWT)
 
+router.route('/')
+  .get(bookingsController.getAllBookings)
+
 router.route('/mybookings')
   .get(bookingsController.getAllBookingsByOwner)
 

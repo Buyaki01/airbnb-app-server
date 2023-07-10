@@ -2,6 +2,10 @@ const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 
+const getUsers = asyncHandler(async (req, res) => {
+  res.json( await User.find())
+})
+
 const createNewUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body
 
@@ -40,5 +44,6 @@ const createNewUser = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
+  getUsers,
   createNewUser
 }

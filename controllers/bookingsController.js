@@ -2,6 +2,10 @@ const Booking = require('../models/Booking')
 const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 
+const getAllBookings = asyncHandler(async (req, res) => {
+  res.json( await Booking.find())
+})
+
 const createNewBooking = asyncHandler(async (req, res) => {
   const {accommodationId, checkIn, 
     checkOut, noOfGuests, name, 
@@ -70,6 +74,7 @@ const getSpecificBooking = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
+  getAllBookings,
   createNewBooking,
   getAllBookingsByOwner,
   getSpecificBooking

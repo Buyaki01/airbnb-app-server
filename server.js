@@ -26,9 +26,9 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes/root'))
 app.use('/register', require('./routes/registerRoutes'))
 app.use('/auth', require('./routes/authRoutes'))
-app.use('/profile', require('./routes/profileRoutes'))
 app.use('/accommodations', require('./routes/accommodationRoutes'))
 app.use('/uploaded-photo', require('./routes/photoRoutes'))
+app.use('/profile', require('./routes/profileRoutes'))
 app.use('/bookings', require('./routes/bookingRoutes'))
 
 app.all('*', (req, res) => {

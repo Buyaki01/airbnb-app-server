@@ -96,7 +96,7 @@ const updateAccommodation = asyncHandler(async (req, res) => {
   if (updatedAccommodation) {
     res.status(200).json({ message: 'Accommodation updated successfully' });
   } else {
-    res.status(404).json({ message: 'Accommodation not found' });
+    res.status(404).json({ message: 'Accommodation not updated' });
   }
 })
 

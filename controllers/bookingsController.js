@@ -15,7 +15,6 @@ const createNewBooking = asyncHandler(async (req, res) => {
   if (!user) {
     return res.status(404).json({ message: 'User not found' })
   }
-
   const ownerId = user._id
 
   const booking = await Booking.create({

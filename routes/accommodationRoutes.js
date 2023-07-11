@@ -7,13 +7,13 @@ router.route('/')
   .get(accommodationsController.getAllAccommodations)
   .delete()
 
-router.route('/new')
+router.route('/')
   .post(verifyJWT, accommodationsController.createNewAccommodation)
 
-router.route('/myaccommodations')
+router.route('/')
   .get(verifyJWT, accommodationsController.getAllAccommodationsForOwner)
   
-router.route('/:id')
+router.route('/')
   .get(accommodationsController.getSpecificAccommodation)
   .patch(verifyJWT, accommodationsController.updateAccommodation)
 

@@ -12,9 +12,11 @@ router.route('/')
 
 router.route('/')
   .get(verifyJWT, accommodationsController.getAllAccommodationsForOwner)
-  
+
 router.route('/')
   .get(accommodationsController.getSpecificAccommodation)
+  
+router.route('/')
   .patch(verifyJWT, accommodationsController.updateAccommodation)
 
 module.exports = router

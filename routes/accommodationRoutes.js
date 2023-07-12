@@ -6,17 +6,9 @@ const verifyJWT = require('../middleware/verifyJWT')
 router.route('/')
   .get(accommodationsController.getAllAccommodations)
   .delete()
-
-router.route('/')
   .post(verifyJWT, accommodationsController.createNewAccommodation)
-
-router.route('/')
   .get(verifyJWT, accommodationsController.getAllAccommodationsForOwner)
-
-router.route('/')
   .get(accommodationsController.getSpecificAccommodation)
-  
-router.route('/')
   .patch(verifyJWT, accommodationsController.updateAccommodation)
 
 module.exports = router

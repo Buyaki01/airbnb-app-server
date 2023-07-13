@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const photosController = require('../controllers/photosController')
+const photosController = require('../controllers/photosController') 
 
 router.route('/')
   .post(photosController.uploadPhotoFromDevice)

@@ -6,13 +6,25 @@ const path = require('path')
 
 const uploadPhotoByLink = asyncHandler(async (req, res) => {
   const {photoLink} = req.body
-  const newName = 'photo' + Date.now() + '.jpg'
-  await downloadImage.image({
-    url: photoLink,
-    dest: __dirname+'/images/' +newName
-  })
 
-  res.json(newName)
+  console.log(photoLink)
+
+  if (!photoLink) {
+    res.status(400).json({ error: 'Missing photo link' })
+    return
+  }
+
+  try {
+    const newName = 'photo' + Date.now() + '.jpg'
+    await downloadImage.image({
+      url: photoLink,
+      dest: path.join(__dirname, 'public/images/', newName),
+    })
+
+    res.json(newName)
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to upload photo from link' })
+  }
 })
 
 const uploadPhotoFromDevice = (upload.array('photos', 100), (req, res) => {

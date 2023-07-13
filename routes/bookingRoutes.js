@@ -5,13 +5,10 @@ const verifyJWT = require('../middleware/verifyJWT')
 
 router.use(verifyJWT)
 
-router.route('/mybookings')
+router.route('/')
+  .get(bookingsController.getAllBookings)
   .get(bookingsController.getAllBookingsByOwner)
-
-router.route('/new')
   .post(bookingsController.createNewBooking)
-
-router.route('/:id')
   .get(bookingsController.getSpecificBooking)
 
 module.exports = router

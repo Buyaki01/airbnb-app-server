@@ -68,21 +68,21 @@ const getAllAccommodationsForOwner = asyncHandler(async (req, res) => {
 })
 
 const updateAccommodation = asyncHandler(async (req, res) => {
-  const {id} = req.params
+  const { id, title, address, photos, description, features, extraInfo, checkIn, checkOut, maxGuests, price } = req.body
 
-  const {title, address, photos:addPhoto, 
-    description, features, 
-    extraInfo, checkIn, checkOut, maxGuests, price,} = req.body
+  if (!id) {
+    return res.status(400).json({ message: 'ID field is required' })
+  }
 
-  const accommodation = await Accommodation.findById(id)
+  let accommodation = await Accommodation.findById(id)
 
   if (!accommodation) {
-    return res.status(404).json({ message: 'Accommodation not found' });
+    return res.status(404).json({ message: 'Accommodation not found' })
   }
 
   accommodation.title = title
   accommodation.address = address
-  accommodation.photos = addPhoto
+  accommodation.photos = photos
   accommodation.description = description
   accommodation.features = features
   accommodation.extraInfo = extraInfo
@@ -91,12 +91,12 @@ const updateAccommodation = asyncHandler(async (req, res) => {
   accommodation.maxGuests = maxGuests
   accommodation.price = price
 
-  const updatedAccommodation = await accommodation.save()
+  accommodation = await accommodation.save()
 
-  if (updatedAccommodation) {
-    res.status(200).json({ message: 'Accommodation updated successfully' });
+  if (accommodation) {
+    res.status(200).json({ message: 'Accommodation updated successfully' })
   } else {
-    res.status(404).json({ message: 'Accommodation not found' });
+    res.status(500).json({ message: 'Error updating accommodation' })
   }
 })
 

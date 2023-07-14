@@ -17,7 +17,7 @@ const getSpecificAccommodation = asyncHandler(async (req, res) => {
 })
 
 const createNewAccommodation = asyncHandler(async (req, res) => {
-  const {title, address, photos:addPhoto, 
+  const {title, address, addPhoto, 
     description, features, 
     extraInfo, checkIn, checkOut, maxGuests, price,} = req.body
   

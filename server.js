@@ -29,7 +29,7 @@ app.use('/', require('./routes/root'))
 app.use('/register', require('./routes/registerRoutes'))
 app.use('/auth', require('./routes/authRoutes'))
 app.use('/accommodations', require('./routes/accommodationRoutes'))
-app.use('/photo', require('./routes/photoRoutes'))
+app.use('/upload', require('./routes/photoRoutes'))
 app.use('/profile', require('./routes/profileRoutes'))
 app.use('/bookings', require('./routes/bookingRoutes'))
 

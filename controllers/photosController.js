@@ -46,10 +46,10 @@ const uploadPhotoFromDevice = (req, res) => {
     for (let i = 0; i < req.files.length; i++) {
       const { originalname } = req.files[i]
       const fileExtension = path.extname(originalname)
-      const newPath = req.files[i].path + fileExtension
+      const newPath = 'photo' + Date.now() + fileExtension
 
-      fs.renameSync(req.files[i].path, newPath);
-      uploadedFiles.push(newPath.replace('images\\', ''))
+      fs.renameSync(req.files[i].path, path.join(req.files[i].destination, newPath))
+      uploadedFiles.push(newPath)
     }
     res.json(uploadedFiles)
   })

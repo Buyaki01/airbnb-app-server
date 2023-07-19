@@ -2,24 +2,22 @@ const Booking = require('../models/Booking')
 const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 
-const getAllBookings = asyncHandler(async (req, res) => {
-  res.json( await Booking.find())
-})
-
 const createNewBooking = asyncHandler(async (req, res) => {
   const {accommodationId, checkIn, 
     checkOut, noOfGuests, name, 
     mobileNumber, price} = req.body
   
   const user = await User.findOne({ username: req.user })
+  
   if (!user) {
     return res.status(404).json({ message: 'User not found' })
   }
+  
   const ownerId = user._id
 
   const booking = await Booking.create({
-    userId:ownerId,
-    accommodationId, 
+    accommodationId,
+    userId: ownerId, 
     checkIn, 
     checkOut, 
     noOfGuests, 
@@ -37,6 +35,7 @@ const createNewBooking = asyncHandler(async (req, res) => {
 
 const getAllBookingsByOwner = asyncHandler(async (req, res) => {
   const user = await User.findOne({ username: req.user })
+  
   if (!user) {
     return res.status(404).json({ message: 'User not found' })
   }
@@ -54,18 +53,17 @@ const getAllBookingsByOwner = asyncHandler(async (req, res) => {
 })
 
 const getSpecificBooking = asyncHandler(async (req, res) => {
-  const bookingId = req.params.bookingId
-  
-  if (!bookingId) return res.status(400).json({ 'message': 'Booking ID required.' })
+  if (!req?.params?.id) return res.status(400).json({ 'message': 'Booking ID required.' })
   
   const user = await User.findOne({ username: req.user })
+  
   if (!user) {
     return res.status(404).json({ message: 'User not found' })
   }
 
   const ownerId = user._id
 
-  const booking = await Booking.findOne({ _id: req.params.bookingId, userId: ownerId }).populate('accommodationId')
+  const booking = await Booking.findOne({ _id: req.params.id, userId: ownerId }).populate('accommodationId')
 
   if (booking) {
     res.status(200).json(booking)
@@ -75,7 +73,6 @@ const getSpecificBooking = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-  getAllBookings,
   createNewBooking,
   getAllBookingsByOwner,
   getSpecificBooking

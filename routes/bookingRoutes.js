@@ -7,8 +7,12 @@ router.use(verifyJWT)
 
 router.route('/')
   .get(bookingsController.getAllBookings)
-  .get(bookingsController.getAllBookingsByOwner)
   .post(bookingsController.createNewBooking)
+
+router.route('/mybookings')
+  .get(bookingsController.getAllBookingsByOwner)
+
+router.route('/:bookingId')
   .get(bookingsController.getSpecificBooking)
 
 module.exports = router

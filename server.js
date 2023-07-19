@@ -21,13 +21,15 @@ app.use(express.json())
 
 app.use(cookieParser())
 
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')))
+
 app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.use('/', require('./routes/root'))
 app.use('/register', require('./routes/registerRoutes'))
 app.use('/auth', require('./routes/authRoutes'))
 app.use('/accommodations', require('./routes/accommodationRoutes'))
-app.use('/uploaded-photo', require('./routes/photoRoutes'))
+app.use('/upload', require('./routes/photoRoutes'))
 app.use('/profile', require('./routes/profileRoutes'))
 app.use('/bookings', require('./routes/bookingRoutes'))
 

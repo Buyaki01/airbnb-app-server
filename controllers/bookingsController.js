@@ -54,7 +54,9 @@ const getAllBookingsByOwner = asyncHandler(async (req, res) => {
 })
 
 const getSpecificBooking = asyncHandler(async (req, res) => {
-  if (!req?.params?.id) return res.status(400).json({ 'message': 'Booking ID required.' })
+  const bookingId = req.params.bookingId
+  
+  if (!bookingId) return res.status(400).json({ 'message': 'Booking ID required.' })
   
   const user = await User.findOne({ username: req.user })
   if (!user) {
@@ -63,7 +65,7 @@ const getSpecificBooking = asyncHandler(async (req, res) => {
 
   const ownerId = user._id
 
-  const booking = await Booking.findOne({ _id: req.params.id, userId: ownerId }).populate('accommodationId')
+  const booking = await Booking.findOne({ _id: req.params.bookingId, userId: ownerId }).populate('accommodationId')
 
   if (booking) {
     res.status(200).json(booking)
